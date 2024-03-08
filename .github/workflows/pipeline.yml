@@ -41,7 +41,7 @@ jobs:
           service-id: ${{ secrets.RENDER_BACKEND_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
       - name: Wait for the Backend service to start
-        run: sleep 120
+        run: sleep 60
 
   deploy-frontend:
     needs: deploy-backend    
