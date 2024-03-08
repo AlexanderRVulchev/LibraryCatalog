@@ -51,7 +51,7 @@ test(`Verify user's email address is visible after user login`, async ({ page })
 
 test('Submit login form with valid credentials', async ({ page }) => {
     await loginUser(page);
-    await page.$('a[href="/catalog"]');
+    await page.waitForURL('**\/catalog');
     expect(page.url()).toBe(catalogEndpoint);
 });
 
