@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build Test Deploy
 
 on:
   push:
@@ -30,3 +30,25 @@ jobs:
       run: sleep 5
     - name: Run tests
       run: npm run test
+
+  deploy-backend:
+    needs: build-and-test    
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Backend to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.RENDER_BACKEND_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
+      - name: Wait for the Backend service to start
+        run: sleep 120
+
+  deploy-frontend:
+    needs: deploy-backend    
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Frontend to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.RENDER_FRONTEND_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}      
