@@ -1,5 +1,5 @@
 export const settings = {
-    host: '',
+    host: 'https://librarycatalogbackend.onrender.com',
 };
 
 async function request(url, options) {
